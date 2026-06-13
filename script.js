@@ -22,26 +22,34 @@
 
 
 /* ── RIPPLE ── */
-document.getElementById('submitBtn').addEventListener('mousedown', function(e) {
+ function bindEvents() {
+   dom.submitBtn.addEventListener('mousedown', spawnRipple);
+   dom.submitBtn.addEventListener('click', handleLogin);
+   dom.eyeBtn.addEventListener('click', togglePassword);
+   dom.emailInput.addEventListener('input', () => clearError('emailField'));
+   dom.passwordInput.addEventListener('input', () => clearError('passwordField'));
+   document.querySelectorAll('.social-btn').forEach((btn) => {
+     const provider = btn.textContent.trim();
+     btn.addEventListener('click', () => socialLogin(provider));
+   });
+   document.querySelector('.forgot-link').addEventListener('click', openForgot);
+   document.querySelector('.modal-close').addEventListener('click', closeForgot);
+  document.querySelector('.modal-submit').addEventListener('click', sendReset);
+   dom.forgotModal.addEventListener('click', function (e) {
+     if (e.target === this) closeForgot();
+   });
+   document.addEventListener('keydown', function (e) {
+     if (e.key === 'Enter') handleLogin(e);
+     if (e.key === 'Escape') closeForgot();
+  });
+ }
 
-  const r = document.createElement('span');
-  r.className = 'ripple';
-
-  const rect = this.getBoundingClientRect();
-  const size = Math.max(rect.width, rect.height);
-
-  r.style.cssText = `
-    width:${size}px;
-    height:${size}px;
-    left:${e.clientX-rect.left-size/2}px;
-    top:${e.clientY-rect.top-size/2}px
-  `;
-
-  this.appendChild(r);
-
-  setTimeout(() => r.remove(), 700);
-});
-
+ function init() {
+   initParticles();
+   bindEvents();
+ }
+ document.addEventListener('DOMContentLoaded', init);
+})();
 /* ── PASSWORD TOGGLE ── */
 function togglePassword() {
 

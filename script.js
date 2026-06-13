@@ -20,7 +20,9 @@
    function initParticles() { /* same logic, uses dom.particles + DocumentFragment */ }
    function spawnRipple(e) { /* extracted from inline mousedown listener */ }
 
-
+ function validatePassword(v) {
+   return v.length >= 6;
+ }
 /* ── RIPPLE ── */
  function bindEvents() {
    dom.submitBtn.addEventListener('mousedown', spawnRipple);
@@ -76,11 +78,27 @@ function togglePassword() {
 function validateEmail(v) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
 }
+ function validateEmailField() {
+  const value = dom.emailInput.value;
+   if (value && !validateEmail(value)) { setError('emailField'); return false; }
+   clearError('emailField');
+   return true;
+ }
 
-function clearError(fieldId) {
-  document.getElementById(fieldId).classList.remove('has-error');
-}
-
+ function validatePasswordField() {
+   const value = dom.passwordInput.value;
+   if (value && !validatePassword(value)) { setError('passwordField'); return false; }
+   clearError('passwordField');
+   return true;
+ }
+ function clearError(fieldId) {
+   const field = document.getElementById(fieldId);
+   field.classList.remove('has-error');
+   const input = field.querySelector('.field-input');
+   if (input) input.removeAttribute('aria-invalid');
+   const errorEl = field.querySelector('.error-msg');
+   if (errorEl) errorEl.removeAttribute('role');
+ }
 /* ── TOAST ── */
 let toastTimer;
 

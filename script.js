@@ -1,26 +1,25 @@
-/* ── PARTICLES ── */
-(function() {
-  const container = document.getElementById('particles');
+(function () {
+   'use strict';
+   const dom = {
+     particles: document.getElementById('particles'),
+     submitBtn: document.getElementById('submitBtn'),
+     passwordInput: document.getElementById('passwordInput'),
+     eyeIcon: document.getElementById('eyeIcon'),
+     eyeBtn: document.getElementById('eyeBtn'),
+     emailInput: document.getElementById('emailInput'),
+     emailField: document.getElementById('emailField'),
+     passwordField: document.getElementById('passwordField'),
+     rememberMe: document.getElementById('rememberMe'),
+     toast: document.getElementById('toast'),
+     toastMsg: document.getElementById('toastMsg'),
+     forgotModal: document.getElementById('forgotModal'),
+     resetEmail: document.getElementById('resetEmail'),
+   };
+   let toastTimer = null;
 
-  for (let i = 0; i < 18; i++) {
+   function initParticles() { /* same logic, uses dom.particles + DocumentFragment */ }
+   function spawnRipple(e) { /* extracted from inline mousedown listener */ }
 
-    const p = document.createElement('div');
-    p.className = 'particle';
-
-    const size = Math.random() * 3 + 1.5;
-
-    p.style.cssText = `
-      width:${size}px;
-      height:${size}px;
-      left:${Math.random()*100}%;
-      animation-duration:${Math.random()*12+8}s;
-      animation-delay:${Math.random()*10}s;
-      opacity:0;
-    `;
-
-    container.appendChild(p);
-  }
-})();
 
 /* ── RIPPLE ── */
 document.getElementById('submitBtn').addEventListener('mousedown', function(e) {

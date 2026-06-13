@@ -108,7 +108,8 @@ function showToast(msg, type='error') {
   const m = document.getElementById('toastMsg');
 
   t.className = `toast ${type === 'success' ? 'success-toast' : 'error'}`;
-
+   t.setAttribute('role', 'status');
+   t.setAttribute('aria-live', 'polite');
   m.textContent = msg;
 
   t.classList.add('show');
